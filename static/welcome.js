@@ -1,4 +1,3 @@
-//AIzaSyD7Mg8MLKMU5jtGwPYUNjyByGG0b_iPm0s
 let books = '';
 let contador = 0;
 let num = 3336;
