@@ -28,9 +28,15 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/", methods=["GET"])
 @login_required
 def index():
-    return render_template("welcome.html")
+    return "peito"
     
-@app.route("/index", methods=["POST"])
+@app.route("/login", methods=["GET"])
+@session_activate
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    
+'''@app.route("/index", methods=["POST"])
 def indice():
     return jsonify({"message": session["user_id"]})
 
@@ -186,4 +192,4 @@ def hola(isbn):
         else:
              db.execute("INSERT INTO reviews(review, stars, id_usuario, ISBN) VALUES(:review, :stars, :id_usuario,:ISBN)", {"review":entrada, "stars": stars, "id_usuario": id_clients, "ISBN": isbn})
              db.commit()
-             return jsonify({"mensaje":"subido" })
+             return jsonify({"mensaje":"subido" })'''
