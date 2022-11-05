@@ -15,12 +15,12 @@
         <a id="logout" href="/logout">Log out</a>
     </nav>
     <div class="entrada">
-        <h2 id="frase">Choose the way to search for the book that you want:</h2>
+        <h2 id="frase">Choose the way you want to look for the book that you want</h2>
             <select id="select" name="selection" required>
                 <option value="Buscar" disabled selected>Search:</option>
-                <option value="Title">by title</option>
-                <option value="Author">by author</option>
-                <option value="ISBN">by isbn</option>
+                <option value="Title">By title</option>
+                <option value="Author">By author</option>
+                <option value="ISBN">By isbn</option>
             </select>
             <input type="text" id="barra" disabled placeholder="Please choose an option">
     </div>
@@ -44,7 +44,7 @@
             ).then(response => response.json())
             .then(function(data)
             {
-                h3.innerHTML = "Welcome " + data["message"] + " !"
+                h3.innerHTML = "¡Bienvenido " + data["message"] + " !"
             })
         }
         )

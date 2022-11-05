@@ -19,7 +19,7 @@ Session(app)
 
 # Set up database
 #siempre conectar así
-engine = create_engine("postgresql://evavjxiahmilyp:bb12e5c80b49f5771b645e5fbb7152b6c3a838d65ba3e2e147ff58cef19e56cd@ec2-44-208-88-195.compute-1.amazonaws.com:5432/dagkhp34ch9ci8")
+engine = create_engine("postgresql://evavjxiahmilyp:bb12e5c80b49f5771b645e5fbb7152b6c3a838d65ba3e2e147ff58cef19e56cd@ec2-44-208-88-195.compute-1.amazonaws.com:5432/dagkhp34ch9ci8",pool_size=10, max_overflow=20)
 db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/", methods=["GET"])
@@ -48,16 +48,16 @@ def libros():
     lista = ["elo", "1", 4]
     info = []
     info_json = []
-    if(respuesta['option'] == "Por su isbn"):
+    if(respuesta['option'] == "By isbn"):
         info = db.execute(f"SELECT * FROM books WHERE isbn iLIKE '%{respuesta['value']}%' LIMIT 10").fetchall()
         #volvemos los datos una lista de diccionarios para luego convertirlo a json
         info=[dict(row) for row in info]
         #info_json = json.dumps(info, indent=2)
-    elif(respuesta['option'] == "Por titulo"):
+    elif(respuesta['option'] == "By title"):
         info = db.execute(f"SELECT * FROM books WHERE titulo iLIKE '%{respuesta['value']}%' LIMIT 10").fetchall()
         #volvemos los datos una lista de diccionarios para luego convertirlo a json
         info=[dict(row) for row in info]
-    elif(respuesta['option'] == "Por autor"):
+    elif(respuesta['option'] == "By author"):
         info = db.execute(f"SELECT * FROM books WHERE autor iLIKE '%{respuesta['value']}%' LIMIT 10").fetchall()
         #volvemos los datos una lista de diccionarios para luego convertirlo a json
         info=[dict(row) for row in info]
@@ -70,12 +70,12 @@ def registerA():
     password =  generate_password_hash(rq["password"])
     confirmacion_usuario = db.execute("SELECT username FROM clients WHERE username=:username", {"username": username}).fetchall()
     if(len(confirmacion_usuario) > 0):  #ya existe el user en la db
-        return jsonify({"message":"The username " + username + " it's already in use, please select another one", "redirect": "/register"})
+        return jsonify({"message":"The username " + username + " it's already in use, please choose another one", "redirect": "/register"})
     else:
         oki = db.execute("INSERT INTO clients (name, password, username) VALUES(:name, :password, :username)", {"name": rq["name"], "password": password, "username":username})
         db.commit()
         session["user_id"] = username
-        return jsonify({"message": "Register completed ✅", "redirect": "/"})
+        return jsonify({"message": "Register completed✅", "redirect": "/"})
 
 @app.route("/login", methods=["GET"])
 @session_activate
@@ -102,7 +102,7 @@ def loginDatos():
     usuario = db.execute("SELECT username FROM clients WHERE username=:username", {"username":username}).fetchall()
     #usuario no existe
     if(len(usuario) !=1):
-        return jsonify({"message":"The user doesn't exist, please register to continue", "redirect":"/register", "bool": "false"})
+        return jsonify({"message":"Username doesn't exist, please register to continue", "redirect":"/register", "bool": "false"})
     #usuario existente
     else:
         password = resultados["password"]
@@ -110,7 +110,7 @@ def loginDatos():
         p = check_password_hash(password_confirmation[0], password)
         if p == True:
             session["user_id"] = username
-            return jsonify({"message": "passwords match 💖", "redirect":"/", "bool": "true"})
+            return jsonify({"message": "passwords match", "redirect":"/", "bool": "true"})
         else:
             return jsonify({"message": "passwords don't match :(", "redirect":"/login", "bool":"false"})
 
@@ -141,7 +141,7 @@ def hola(isbn):
         isbn=  response['items'][0]['volumeInfo']['industryIdentifiers'][0]['identifier']
         img = ''
         if rating == 0:
-            img = "Oh no :(, seems that there is no ratings"
+            img = "Oh no :( It seems there is no ratings"
         elif rating >= 1 and rating < 2:
             img = "one-star.png"
         elif rating >= 2 and rating < 3:
@@ -179,8 +179,8 @@ def hola(isbn):
         id_clients = a[0][0]
         result = db.execute("SELECT id_usuario from reviews WHERE id_usuario=:id_usuario and isbn=:isbn", {"id_usuario": id_clients, "isbn":isbn}).fetchall()
         if(len(result) == 1):
-             return jsonify({"mensaje": "You can only submit one commment per book"})
+             return jsonify({"mensaje": "You can only upload one comment per book"})
         else:
              db.execute("INSERT INTO reviews(review, stars, id_usuario, ISBN) VALUES(:review, :stars, :id_usuario,:ISBN)", {"review":entrada, "stars": stars, "id_usuario": id_clients, "ISBN": isbn})
              db.commit()
-             return jsonify({"mensaje":"✅" })
+             return jsonify({"mensaje":"sent" })
