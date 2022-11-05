@@ -1,0 +1,208 @@
+body 
+{
+    background-color: antiquewhite;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 150px 1fr 250px 1fr 1fr;
+
+}
+ 
+h1 
+{
+    font-family: 'Fredoka One', cursive;
+}
+.img_description 
+{
+    display: grid;
+    grid-template-rows: 250px 1fr;
+    grid-row-start:2;
+    grid-row-end:3;
+    grid-column-start: 1;
+    grid-column-end:3;
+   
+  
+}
+.description 
+{
+    text-decoration: underline;
+    font-family: 'Courgette', cursive;
+}
+.title 
+{
+    justify-self: center;
+    text-align: center;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start:1;
+    grid-row-end:2;
+    margin-bottom: 60px;
+}
+.informationBook 
+{
+    background-color: rgb(250, 210, 210);
+    padding: 1px;
+    border-radius: 10px;
+    border: 2px solid white;
+    position: relative; 
+    bottom:18px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 100px 100px; 
+}
+.informationBook:hover 
+{
+    background-color: rgb(241, 206, 223);
+}
+.ratings 
+{
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: rgb(241, 206, 223);
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start:3;
+    grid-row-end:4;
+}
+.ratings:hover 
+{
+    background-color: rgb(250, 210, 210);
+}
+.ratingNumber
+{
+    color:brown;
+}
+.noRating 
+{
+    text-align: center;
+    color:red;
+}
+.rating 
+{
+    text-align: center;
+    color:rgb(56, 9, 97);
+    font-family: 'Fredoka One', cursive;
+}
+.estrellas 
+{
+    margin:auto;
+    width:100px;
+    height:100px;
+}
+.ratingContainer 
+{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+}
+.resenasUsuarios
+{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+.subirResena 
+{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 4;
+    grid-row-end: 5;
+}
+
+.inputForm
+{
+    position: relative;
+    left:5%;
+    width:80%;
+    height:100px;
+}
+.formButton 
+{
+    border-radius: 20px;  
+    width:83%;
+    position: relative;
+    left:5%;
+    margin-top: 10px;
+    font-weight: bold;
+    height:30px;
+    border: 2px solid rgb(206, 84, 84);
+    background-color: rgb(206, 84, 84);
+}
+.formButton:hover 
+{
+    background-color: brown;
+    border: 2px solid brown;
+}
+.form 
+{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+}
+
+.stars 
+{
+    display:flex;
+    gap:5px;
+    align-items: center;
+}
+.starsRating 
+{
+    font-weight: bold;
+    color:rgb(247, 83, 83);
+}
+.comentario 
+{ 
+    background-color: pink;
+    border-radius: 20px;
+    text-align: center;
+}
+.usuarioComment
+{
+    font-family: 'Fredoka One', cursive;
+    color:rgb(224, 115, 115); 
+    background-color: rgb(224, 245, 251);  
+}
+.portada 
+{
+    width: 200px;
+    height: 200px;
+    justify-self: center;
+}
+.h4t
+{
+    color:rgb(210, 95, 72);
+    font-family: 'Fredoka One', cursive;
+    text-align: center;
+}
+@media(min-width:421px) and (max-width:495px)
+{
+    .leaveRating
+    {
+        font-size: 10px;
+    }
+}
+@media(max-width:421px)
+{
+    .leaveRating
+    {
+        display: none;
+    }
+}
+@media(max-width:410px)
+{
+    .h4t 
+    {
+        font-size: 15px;
+    }
+    .usuarioComment 
+    {
+        font-size:80%;
+    }
+    .texto 
+    {
+        font-weight: bold;
+        font-size: 80%;
+    }
+}

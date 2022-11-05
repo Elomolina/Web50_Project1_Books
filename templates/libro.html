@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Fredoka+One&family=Lobster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/libro.css">
+    <link rel="icon" href="https://covers.openlibrary.org/b/isbn/{{a}}-M.jpg">
+    <title>{{nombre}}</title>
+</head>
+<body>
+    <div class="title">
+        <h1>{{nombre}}</h1>
+        <h3>by {{autor}}</h3>
+    </div>
+    <div class="img_description">
+        <img class="portada" src="https://covers.openlibrary.org/b/isbn/{{a}}-M.jpg" alt="portada">
+        <div class="informationBook">
+            <div class="a">
+                <h3 class="description">Category:</h3>
+                <p>{{category}}</p>
+            </div>
+            <div class="a">
+                <h3 class="description">Description:</h3>
+                <p>{{parrafo}}</p> 
+            </div>
+            <div class="a">
+                <h3 class="description">Pages:</h3>
+                <p>{{pages}}</p>
+            </div>
+            <div class="a">
+                <h3 class="description">Publication date:</h3>
+                <p>{{fecha}}</p>
+            </div>
+            <div class="a isbnDescription">
+                <h3 class="description">ISBN:</h3>
+                <p>{{isbn}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="ratings">
+        <h2 class="rating">Ratings</h2>
+        <div class="ratingContainer">
+           <h3> Rating that users gave to "{{nombre}}": <span class="ratingNumber">{{rating}}</span></h3>
+           {%if rating == 0%}
+                <h3 class="noRating">{{img}}</h3>
+            {% else %}
+                <img class="estrellas" src="../static/images/{{img}}" alt="estrellas">
+            {%endif%}
+            </div>
+  </div>
+    <div class="resenasUsuarios">
+        <h4 class="h4t">Our users opinion about "{{nombre}}":</h4>
+        {%for libro in comments%}
+        <div class="comentario">
+            <h3 class="usuarioComment">@{{libro.user}}</h3>
+            <p class="texto">{{libro.review}}</p>
+            <p>Stars: <span class="starsRating">{{libro.stars}}</span></p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="subirResena">
+        <h4 class="h4t">Did you read "{{nombre}}"? Tell us your opinion about it!</h4>
+        <div class="form">
+            <input type="text" name="inputForm" class="inputForm" placeholder="Type a review" id="inputForm" autocomplete="off">
+            <div class="stars">
+                <h4 class="leaveRating">Leave your rating!</h4>
+                <select name="stars" id="stars">
+                    <option value="one">★</option>
+                    <option value="two">★★</option>
+                    <option value="three">★★★</option>
+                    <option value="four">★★★★</option>
+                    <option value="five">★★★★★</option>
+                </select>
+            </div>
+            <button id="b" type="button" class="formButton" onclick=enviarDatos()>Sent</button>
+        </div>
+    </div>
+    <script>
+        const queryString = window.location.pathname;
+        let select = document.getElementById("stars")
+        let inputForm= document.getElementById("inputForm");
+        inputForm.addEventListener("keypress", 
+            function(event)
+            {
+                let b = document.getElementById("b");
+                if(event.key == "Enter")
+                {
+                    b.click();
+                }
+            });
+            function enviarDatos()
+            {
+            entry = {"input": inputForm.value, "selectedOption": select.value}
+            fetch(`${queryString}`, 
+            {
+                method:"POST",
+                body:JSON.stringify(entry),
+                headers:
+                    {
+                        "content-type":"application/json"
+                    }
+                
+            }).then(response => response.json())
+            .then(function(data)
+            {
+                alert(data["mensaje"]);
+                window.location.href = queryString;
+            })
+        }
+    </script>
+</body>
+</html>

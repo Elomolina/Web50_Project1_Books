@@ -1,0 +1,200 @@
+
+html
+{
+    height: 100%; 
+}
+body
+{
+    margin:0;
+    height:100%;
+    display:grid; 
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+h1 
+{
+    font-family: 'Fredoka One', cursive;
+    color:rgb(206, 84, 84);
+    
+}
+.informacion 
+{
+    overflow: hidden;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background-image: url("./images/animated_gif.gif");
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+}   
+.parrafo 
+{
+    font-family: 'Fredoka One', cursive;
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin: 15px;
+}
+.name 
+{
+    font-family: 'Fredoka One', cursive;
+    margin-left: 10px;
+    color: rgb(255, 185, 227);
+    font-size: 15px;
+    justify-self: flex-start;
+}
+.books 
+{
+    position: relative; 
+    top:10px;
+    width:30px;
+    height:30px;
+}
+.libro 
+{
+   
+    width:200px;
+    height:200px;
+    justify-self: center;
+}
+.text1 
+{
+    justify-self: center;
+    font-size: small;
+    font-family: 'Fredoka One', cursive;
+}
+.registro 
+{
+    background-color: papayawhip;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form 
+{
+    background-color: rgb(151, 177, 231);
+    border-radius: 10px;
+    border: 2px solid white;
+    width: 40%;
+    padding-left: 60px;
+    padding-right: 60px;
+    
+}
+input 
+{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    margin-bottom:15px;
+    border: 2px solid rgb(255, 255, 255);
+}
+label 
+{
+    font-family: 'Fredoka One', cursive;
+}
+.aInicia
+{
+    color:rgb(246, 246, 246);
+}
+
+.aInicia:hover 
+{
+    color:rgb(97, 37, 37);
+}
+button 
+{
+    font-family: 'Fredoka One', cursive;
+    color: white;
+    width:105%;
+    height:50px;
+    border-radius: 10px;
+    border: 2px solid brown;
+    background-color: brown;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+button:hover 
+{
+    background-color: rgb(100, 100, 160);
+    border: 2px solid rgb(100, 100, 160);
+}
+h6 
+{
+    position: relative;
+    bottom:40px;
+    font-family: Arial, Helvetica, sans-serif;
+    color:red;
+}
+
+@media (min-width:431px) and (max-width: 668px)
+{
+ .libro 
+ {
+    width: 100px;
+    height:100px;
+ }   
+}
+@media  (min-width:375px) and (max-width:431px)
+{
+    .parrafo 
+    {
+        font-size: 20px;
+    }  
+    .libro 
+    {
+        width:100px;
+        height:100px;
+    }
+    .text1 
+    {
+        text-align: center;
+    }
+}
+@media (max-width: 375px)
+{
+    #button 
+    {
+        position: relative; 
+        right:5px;
+       width:130%;
+    }
+    .parrafo 
+    {
+        font-size: 10px;
+    }  
+    h1 
+    {
+        position: relative; 
+        right:30px;
+    }
+    label 
+    {
+        position:relative;
+        right:25px;
+    }
+    input 
+    {
+        position:relative;
+        right:25px;
+        width:200%;
+    }
+    .form 
+    {
+        width:20%;
+    }
+    .libro 
+    {
+        width: 80px;
+        height:80px;
+    }
+    .text1 
+    {
+        text-align: center;
+    }
+}

@@ -1,0 +1,111 @@
+* {
+	margin: 0;
+	padding: 0;
+	
+}
+#logout 
+{
+	justify-self: end;
+	margin:10px;
+	text-decoration: none;
+	border-radius: 10px;
+	padding-top: 5px;
+	text-align: center;
+	height:25px;
+	width:150px;
+	background-color: rgb(255, 255, 255);
+}
+body 
+{
+	background-color: antiquewhite;
+	display: grid;
+	grid-template-rows: 60px 200px 1fr;
+}
+#logout:hover
+{
+	background-color: rgb(227, 75, 75);
+	color:white;
+}
+#h3 
+{
+	margin:10px;
+	font-family: 'Fredoka One', cursive;
+	font-weight: lighter;
+	color:rgb(255, 255, 255);
+}
+#barra 
+{
+	width:400px;
+	height:40px;
+	border-radius: 20px;
+	border: 2px solid white;
+}
+#barra:disabled
+{
+	cursor:not-allowed;
+}
+
+
+nav 
+{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	border: 2px solid rgb(228, 177, 222);
+	border-radius: 5px;
+	background-color: rgb(228, 177, 222);
+}
+
+.posters 
+{
+	margin: auto;
+	margin-top: 20px;	
+	width:80%;
+	padding-left: 10%;
+	padding-bottom: 10%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	
+}
+
+.entrada 
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#frase
+{
+	color:rgb(0, 0, 0);
+	font-family: 'Fredoka One', cursive;
+	margin-top: 10px;
+}
+#select 
+{
+	text-align: center;
+	border: 2px solid white;
+	border-radius: 20px;
+	height:30px;
+	margin:10px;
+	width:200px;
+}
+
+@media(max-width:714px)
+{
+	.posters 
+	{
+		grid-template-columns: 1fr 1fr;
+	}
+}
+@media(max-width:483px)
+{
+	
+	.posters 
+	{
+		
+		grid-template-columns: 1fr;
+	}
+	.books 
+	{
+		justify-self: center;
+	}
+}

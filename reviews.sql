@@ -1,0 +1,1 @@
+CREATE TABLE reviews(id INTEGER, id_usuario INTEGER, review VARCHAR(300) NOT NULL, PRIMARY KEY(id), FOREIGN KEY(id_usuario) REFERENCES clients(id_clients))

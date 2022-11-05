@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../static/images/book.png" type="image/x-icon">
+    <link rel="stylesheet" href="../static/styleInicio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <title>Login</title>
+</head>
+<body>
+        <div class="informacion">
+            <h3 class="name">Elobooks  <img class="books" src="../static/images/books.png" alt=""> </h3>
+            <p class="parrafo">Encuentra información de millones de libros y opina al respecto de ellos</p>
+            <img src="../static/images/book.png" class="libro" alt="libro">
+            <p class="text1">¿No tienes una cuenta todavía? <a class="aInicia" href="/register">Regístrate</a></p>
+        </div>
+        <div class="registro">
+            <div class="form">
+                <h1>¡Inicia sesión!</h1>
+                    <label for="username">Nombre de usuario</label>
+                    <input type="text" id="username">
+                    <label for="password">Contraseña</label>
+                    <input type="password" name="password" id="password">
+                    <button onclick=send() id="button">Enviar</button>
+            </div>
+        </div>
+    <script src="../static/scriptLogin.js"></script>
+    <script>
+        let input = document.getElementById("password");
+        input.addEventListener("keypress",
+                function(event)
+                {
+                    let envio = document.getElementById("button");
+                    if(event.key =="Enter")
+                    {
+                        envio.click();
+                    }
+                })
+        function send()
+        {
+            let username = document.getElementById("username");
+            let password = document.getElementById("password");
+            let entry = {username: username.value, password:password.value};
+            fetch('/loginDatos', 
+            {
+                method:"POST",
+                body:JSON.stringify(entry),
+                headers:{  "content-type":"application/json"}
+                
+            }).then(response => response.json())
+            .then(function(data)
+            {
+                if(data["bool"] == "false")
+                {
+                    alert(data["message"]);
+                    window.location.href = data["redirect"];
+                }
+                else 
+                {
+                    window.location.href = data["redirect"];
+                }
+            })
+        }
+
+    </script>
+</body>
+</html>
