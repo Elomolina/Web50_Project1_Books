@@ -12,17 +12,17 @@
 <body>
     <nav>
         <a href="/" style="text-decoration:none;"> <h3 id="h3"></h3></a>
-        <a id="logout" href="/logout">Cerrar sesión</a>
+        <a id="logout" href="/logout">Log out</a>
     </nav>
     <div class="entrada">
-        <h2 id="frase">Escoge la manera en que buscarás tu libro:</h2>
+        <h2 id="frase">Choose the way to search for the book that you want:</h2>
             <select id="select" name="selection" required>
-                <option value="Buscar" disabled selected>Buscar:</option>
-                <option value="Title">Por titulo</option>
-                <option value="Author">Por autor</option>
-                <option value="ISBN">Por su isbn</option>
+                <option value="Buscar" disabled selected>Search:</option>
+                <option value="Title">by title</option>
+                <option value="Author">by author</option>
+                <option value="ISBN">by isbn</option>
             </select>
-            <input type="text" id="barra" disabled placeholder="Por favor escoge una opción">
+            <input type="text" id="barra" disabled placeholder="Please choose an option">
     </div>
     <div class="posters" id="posters">
         
@@ -44,7 +44,7 @@
             ).then(response => response.json())
             .then(function(data)
             {
-                h3.innerHTML = "¡Bienvenido " + data["message"] + " !"
+                h3.innerHTML = "Welcome " + data["message"] + " !"
             })
         }
         )

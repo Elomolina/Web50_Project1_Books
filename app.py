@@ -18,6 +18,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Set up database
+#siempre conectar así
 engine = create_engine("postgresql://evavjxiahmilyp:bb12e5c80b49f5771b645e5fbb7152b6c3a838d65ba3e2e147ff58cef19e56cd@ec2-44-208-88-195.compute-1.amazonaws.com:5432/dagkhp34ch9ci8")
 db = scoped_session(sessionmaker(bind=engine))
 
@@ -69,12 +70,12 @@ def registerA():
     password =  generate_password_hash(rq["password"])
     confirmacion_usuario = db.execute("SELECT username FROM clients WHERE username=:username", {"username": username}).fetchall()
     if(len(confirmacion_usuario) > 0):  #ya existe el user en la db
-        return jsonify({"message":"El nombre de usuario " + username + " ya esta en uso, por favor escoge otro", "redirect": "/register"})
+        return jsonify({"message":"The username " + username + " it's already in use, please select another one", "redirect": "/register"})
     else:
         oki = db.execute("INSERT INTO clients (name, password, username) VALUES(:name, :password, :username)", {"name": rq["name"], "password": password, "username":username})
         db.commit()
         session["user_id"] = username
-        return jsonify({"message": "Registro exitoso ✅", "redirect": "/"})
+        return jsonify({"message": "Register completed ✅", "redirect": "/"})
 
 @app.route("/login", methods=["GET"])
 @session_activate
@@ -101,7 +102,7 @@ def loginDatos():
     usuario = db.execute("SELECT username FROM clients WHERE username=:username", {"username":username}).fetchall()
     #usuario no existe
     if(len(usuario) !=1):
-        return jsonify({"message":"El usuario no existe por favor registrate para continuar", "redirect":"/register", "bool": "false"})
+        return jsonify({"message":"The user doesn't exist, please register to continue", "redirect":"/register", "bool": "false"})
     #usuario existente
     else:
         password = resultados["password"]
@@ -109,9 +110,9 @@ def loginDatos():
         p = check_password_hash(password_confirmation[0], password)
         if p == True:
             session["user_id"] = username
-            return jsonify({"message": "contraseñas coinciden 💖", "redirect":"/", "bool": "true"})
+            return jsonify({"message": "passwords match 💖", "redirect":"/", "bool": "true"})
         else:
-            return jsonify({"message": "contraseñas no coinciden :(", "redirect":"/login", "bool":"false"})
+            return jsonify({"message": "passwords don't match :(", "redirect":"/login", "bool":"false"})
 
 @app.route("/<string:isbn>", methods = ["GET", "POST"])
 def hola(isbn):
@@ -140,7 +141,7 @@ def hola(isbn):
         isbn=  response['items'][0]['volumeInfo']['industryIdentifiers'][0]['identifier']
         img = ''
         if rating == 0:
-            img = "Parece que no hay ratings :("
+            img = "Oh no :(, seems that there is no ratings"
         elif rating >= 1 and rating < 2:
             img = "one-star.png"
         elif rating >= 2 and rating < 3:
@@ -178,8 +179,8 @@ def hola(isbn):
         id_clients = a[0][0]
         result = db.execute("SELECT id_usuario from reviews WHERE id_usuario=:id_usuario and isbn=:isbn", {"id_usuario": id_clients, "isbn":isbn}).fetchall()
         if(len(result) == 1):
-             return jsonify({"mensaje": "Solo puedes subir un comentario por libro"})
+             return jsonify({"mensaje": "You can only submit one commment per book"})
         else:
              db.execute("INSERT INTO reviews(review, stars, id_usuario, ISBN) VALUES(:review, :stars, :id_usuario,:ISBN)", {"review":entrada, "stars": stars, "id_usuario": id_clients, "ISBN": isbn})
              db.commit()
-             return jsonify({"mensaje":"subido" })
+             return jsonify({"mensaje":"✅" })
